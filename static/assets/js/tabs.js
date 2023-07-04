@@ -36,7 +36,7 @@ function addNewTab() {
   tabPanel.appendChild(iframe);
   iframe.addEventListener('load', () => {
     const title = iframe.contentDocument.title;
-    tabButton.innerHTML = title + ` <span class="close-button" onclick="closeTab(event)"><i class="fas fa-times"></i></span>`;
+    tabButton.innerHTML = `Tab ${tabCount} - ${title} <span class="close-button" onclick="closeTab(event)"><i class="fas fa-times"></i></span>`; // Update tab button text
   });
   document.querySelector('.tab-content').appendChild(tabPanel);
 
