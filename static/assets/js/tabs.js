@@ -1,5 +1,3 @@
-// Event listener for the "Add Tab" button
-document.querySelector('.add-tab-button').addEventListener('mousedown', addNewTab);
 let tabCount = 2; // Start tab count from 2 since home is initially loaded as tab 1
 
 function openTab(event, tabId) {
@@ -29,7 +27,7 @@ function addNewTab() {
   const tabPanel = document.createElement('div');
   tabPanel.className = 'tab-panel';
   tabPanel.id = newTabId;
-  tabPanel.style.height = 'calc(100% - 40px)'; // Adjusted height calculation
+  tabPanel.style.height = '100%'; // Set parent height to 100%
   const iframe = document.createElement('iframe');
   iframe.src = '/static/tabs.html';
   iframe.style.width = '100%';
@@ -38,7 +36,7 @@ function addNewTab() {
   tabPanel.appendChild(iframe);
   iframe.addEventListener('load', () => {
     const title = iframe.contentDocument.title;
-    tabButton.innerHTML = `Tab ${tabCount} - ${title} <span class="close-button" onclick="closeTab(event)"><i class="fas fa-times"></i></span>`; // Update tab button text
+    tabButton.innerHTML = title + ` <span class="close-button" onclick="closeTab(event)"><i class="fas fa-times"></i></span>`;
   });
   document.querySelector('.tab-content').appendChild(tabPanel);
 
@@ -56,19 +54,16 @@ function closeTab(event) {
   tabButton.parentNode.removeChild(tabButton);
 }
 
-function initializeHomeTab() {
-  const homeTab = document.getElementById('tab1');
-  openTab(event, homeTab.id);
-  homeTab.classList.add('active');
-}
-
 // Event listener for the home tab
 document.getElementById('tab1').addEventListener('click', (event) => {
   openTab(event, 'tab1');
 });
 
 // Event listener for the "Add Tab" button
-document.querySelector('.add-tab-button').addEventListener('mousedown', addNewTab);
+document.querySelector('.add-tab-button').addEventListener('click', addNewTab);
 
-// Call the initializeHomeTab function after defining it, so that the home tab is initialized correctly
-initializeHomeTab();
+// Event listener for the home tab button
+document.getElementById('home-tab').addEventListener('click', (event) => {
+  openTab(event, 'tab1');
+});
+
