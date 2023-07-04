@@ -1,3 +1,5 @@
+// Event listener for the "Add Tab" button
+document.querySelector('.add-tab-button').addEventListener('mousedown', addNewTab);
 let tabCount = 2; // Start tab count from 2 since home is initially loaded as tab 1
 
 function openTab(event, tabId) {
@@ -54,15 +56,19 @@ function closeTab(event) {
   tabButton.parentNode.removeChild(tabButton);
 }
 
-// Function to set the home tab as active on page load
 function initializeHomeTab() {
   const homeTab = document.getElementById('tab1');
   openTab(event, homeTab.id);
   homeTab.classList.add('active');
 }
 
+// Event listener for the home tab
+document.getElementById('tab1').addEventListener('click', (event) => {
+  openTab(event, 'tab1');
+});
+
 // Event listener for the "Add Tab" button
-document.querySelector('.add-tab-button').addEventListener('click', addNewTab);
+document.querySelector('.add-tab-button').addEventListener('mousedown', addNewTab);
 
 // Call the initializeHomeTab function after defining it, so that the home tab is initialized correctly
 initializeHomeTab();
