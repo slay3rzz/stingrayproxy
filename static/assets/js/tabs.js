@@ -1,3 +1,5 @@
+// tabs.js
+
 let tabCount = 2; // Start tab count from 2 since home is initially loaded as tab 1
 
 function openTab(event, tabId) {
@@ -8,11 +10,11 @@ function openTab(event, tabId) {
 
   const tabLinks = document.getElementsByClassName('tab');
   for (let i = 0; i < tabLinks.length; i++) {
-    tabLinks[i].classList.remove('active');
+    tabLinks[i].className = tabLinks[i].className.replace(' active', '');
   }
 
   document.getElementById(tabId).style.display = 'block';
-  event.currentTarget.classList.add('active');
+  event.currentTarget.className += ' active';
 }
 
 function addNewTab() {
@@ -34,17 +36,12 @@ function addNewTab() {
   iframe.style.height = '100%';
   iframe.style.border = 'none';
   tabPanel.appendChild(iframe);
-  iframe.addEventListener('load', () => {
-    const title = iframe.contentDocument.title;
-    tabButton.innerHTML = title + ` <span class="close-button" onclick="closeTab(event)"><i class="fas fa-times"></i></span>`;
-  });
   document.querySelector('.tab-content').appendChild(tabPanel);
 
   tabCount++;
 }
 
 function closeTab(event) {
-  event.stopPropagation();
   const tabButton = event.target.closest('.tab');
   const tabId = tabButton.getAttribute('onclick').match(/'([^']+)'/)[1];
 
@@ -61,9 +58,4 @@ document.getElementById('tab1').addEventListener('click', (event) => {
 
 // Event listener for the "Add Tab" button
 document.querySelector('.add-tab-button').addEventListener('click', addNewTab);
-
-// Event listener for the home tab button
-document.getElementById('home-tab').addEventListener('click', (event) => {
-  openTab(event, 'tab1');
-});
 
